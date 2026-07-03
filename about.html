@@ -1,0 +1,1050 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About — Lumostat | Digital Design Studio</title>
+<meta name="description" content="Lumostat is a premium web design and digital solutions agency. We build custom websites and products for ambitious businesses. Learn who we are and how we work.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  /* ============================================================
+     DESIGN SYSTEM — shared tokens & base components
+     Reused verbatim from the Lumostat brand guide / homepage.
+     ============================================================ */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --color-primary:    #1C1C22;
+    --color-secondary:  #D8D8DC;
+    --color-bg:         #FFFFFF;
+    --color-surface:    #F8F8F8;
+    --color-border:     #ECECEC;
+    --color-text-1:     #1C1C22;
+    --color-text-2:     #6E6E73;
+    --color-success:    #2FA772;
+    --color-error:      #E5484D;
+
+    --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+
+    --radius-xs:  4px;
+    --radius-sm:  8px;
+    --radius-md:  12px;
+    --radius-lg:  16px;
+    --radius-xl:  24px;
+    --radius-2xl: 32px;
+    --radius-full: 9999px;
+
+    --shadow-xs:  0 1px 2px rgba(0,0,0,.04);
+    --shadow-sm:  0 2px 8px rgba(0,0,0,.06);
+    --shadow-md:  0 4px 16px rgba(0,0,0,.08);
+    --shadow-lg:  0 8px 32px rgba(0,0,0,.10);
+    --shadow-xl:  0 16px 48px rgba(0,0,0,.12);
+    --shadow-2xl: 0 24px 64px rgba(0,0,0,.14);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+  body {
+    font-family: var(--font);
+    background: var(--color-bg);
+    color: var(--color-text-1);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a { color: inherit; }
+  img { max-width: 100%; display: block; }
+
+  :focus-visible {
+    outline: 3px solid rgba(28,28,34,.35);
+    outline-offset: 3px;
+    border-radius: var(--radius-xs);
+  }
+
+  .visually-hidden {
+    position: absolute; width: 1px; height: 1px;
+    padding: 0; margin: -1px; overflow: hidden;
+    clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+  }
+
+  /* ── NAV ─────────────────────────────────────────── */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(255,255,255,.88);
+    backdrop-filter: saturate(180%) blur(20px);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    border-bottom: 1px solid var(--color-border);
+    padding: 0 48px;
+    height: 64px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .nav-inner {
+    max-width: 1280px; margin: 0 auto; width: 100%;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .nav-brand {
+    display: flex; align-items: center; gap: 10px;
+    font-size: 15px; font-weight: 700; letter-spacing: -.3px;
+    color: var(--color-text-1); text-decoration: none;
+  }
+  .nav-brand img { width: 22px; height: 22px; }
+  .nav-links {
+    display: flex; align-items: center; gap: 32px; list-style: none;
+  }
+  .nav-links a {
+    font-size: 13px; font-weight: 500; color: var(--color-text-2);
+    text-decoration: none; letter-spacing: -.1px;
+    transition: color .15s;
+    position: relative;
+  }
+  .nav-links a:hover { color: var(--color-text-1); }
+  .nav-links a.active { color: var(--color-text-1); }
+  .nav-links a.active::after {
+    content: ''; position: absolute; left: 0; right: 0; bottom: -22px;
+    height: 2px; background: var(--color-primary);
+  }
+  .nav-soon {
+    font-size: 10px; font-weight: 600; letter-spacing: .3px;
+    color: var(--color-text-2); border: 1px solid var(--color-border);
+    border-radius: var(--radius-full); padding: 1px 7px; margin-left: 6px;
+    vertical-align: middle;
+  }
+  .nav-cta { display: flex; align-items: center; gap: 20px; }
+  .nav-toggle {
+    display: none; width: 40px; height: 40px; border-radius: var(--radius-md);
+    border: 1px solid var(--color-border); background: var(--color-bg);
+    align-items: center; justify-content: center; cursor: pointer;
+  }
+
+  /* ── BUTTONS ─────────────────────────────────────── */
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+    font-family: var(--font); font-weight: 600; cursor: pointer;
+    border: none; text-decoration: none; transition: all .15s;
+    white-space: nowrap;
+  }
+  .btn-lg  { padding: 14px 28px; font-size: 15px; border-radius: var(--radius-full); }
+  .btn-md  { padding: 10px 20px; font-size: 14px; border-radius: var(--radius-full); }
+  .btn-sm  { padding: 7px 14px;  font-size: 12px; border-radius: var(--radius-full); }
+
+  .btn-primary { background: var(--color-primary); color: #fff; }
+  .btn-primary:hover { background: #2e2e36; transform: translateY(-1px); }
+  .btn-secondary { background: var(--color-surface); color: var(--color-text-1); border: 1px solid var(--color-border); }
+  .btn-secondary:hover { background: var(--color-border); }
+  .btn-ghost { background: transparent; color: var(--color-text-1); border: 1px solid var(--color-border); }
+  .btn-ghost:hover { background: var(--color-surface); }
+  .btn-ghost-white { background: transparent; color: #fff; border: 1px solid rgba(255,255,255,.2); }
+  .btn-ghost-white:hover { background: rgba(255,255,255,.08); }
+  .btn-white { background: #fff; color: var(--color-primary); }
+  .btn-white:hover { background: rgba(255,255,255,.9); transform: translateY(-1px); }
+  .btn svg { flex-shrink: 0; transition: transform .15s; }
+  .btn:hover svg.arrow { transform: translateX(3px); }
+
+  /* ── SECTION LAYOUT ──────────────────────────────── */
+  section {
+    padding: 120px 48px;
+    border-bottom: 1px solid var(--color-border);
+  }
+  .section-inner { max-width: 1120px; margin: 0 auto; }
+  .section-inner.narrow { max-width: 880px; }
+
+  .section-label {
+    font-size: 11px; font-weight: 600; letter-spacing: 1.2px;
+    text-transform: uppercase; color: var(--color-text-2);
+    margin-bottom: 20px;
+    display: flex; align-items: center; gap: 12px;
+  }
+
+  .section-title {
+    font-size: clamp(28px, 3.6vw, 40px); font-weight: 700; letter-spacing: -1.2px;
+    line-height: 1.15; margin-bottom: 20px;
+  }
+  .section-desc {
+    font-size: 17px; color: var(--color-text-2);
+    max-width: 560px; line-height: 1.75;
+  }
+
+  .section-head {
+    display: flex; justify-content: space-between; align-items: flex-end;
+    gap: 40px; margin-bottom: 64px; flex-wrap: wrap;
+  }
+
+  /* ── REVEAL ANIMATION ────────────────────────────── */
+  .reveal {
+    opacity: 0; transform: translateY(28px);
+    transition: opacity .7s cubic-bezier(.16,1,.3,1), transform .7s cubic-bezier(.16,1,.3,1);
+  }
+  .reveal.is-visible { opacity: 1; transform: translateY(0); }
+  .reveal-delay-1 { transition-delay: .08s; }
+  .reveal-delay-2 { transition-delay: .16s; }
+  .reveal-delay-3 { transition-delay: .24s; }
+  .reveal-delay-4 { transition-delay: .32s; }
+
+  /* ============================================================
+     PAGE-SPECIFIC STYLES — about.html
+     ============================================================ */
+
+  /* ── HERO ────────────────────────────────────────── */
+  .about-hero {
+    padding: 96px 48px 88px;
+    border-bottom: 1px solid var(--color-border);
+    background:
+      radial-gradient(720px 360px at 82% -10%, rgba(28,28,34,.045), transparent 65%);
+  }
+  .about-hero-inner {
+    max-width: 1120px; margin: 0 auto;
+    display: grid; grid-template-columns: 1.3fr 0.7fr; gap: 64px; align-items: end;
+  }
+  .about-hero-eyebrow {
+    font-size: 11px; font-weight: 600; letter-spacing: 1.4px;
+    text-transform: uppercase; color: var(--color-text-2);
+    margin-bottom: 28px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .about-hero-eyebrow .dot {
+    width: 6px; height: 6px; border-radius: 50%; background: var(--color-secondary);
+  }
+  .about-hero-title {
+    font-size: clamp(40px, 5.4vw, 68px);
+    font-weight: 800; letter-spacing: -2.6px; line-height: 1.06;
+    color: var(--color-text-1);
+    margin-bottom: 28px;
+  }
+  .about-hero-sub {
+    font-size: 18px; font-weight: 400; color: var(--color-text-2);
+    max-width: 460px; line-height: 1.75; letter-spacing: -.2px;
+    margin-bottom: 36px;
+  }
+  .about-hero-cta { display: flex; gap: 14px; flex-wrap: wrap; }
+  .about-hero-stats {
+    display: flex; flex-direction: column; gap: 28px;
+    border-left: 1px solid var(--color-border); padding-left: 40px;
+  }
+  .about-hero-stat-num {
+    font-size: 32px; font-weight: 800; letter-spacing: -1.2px; line-height: 1;
+    margin-bottom: 6px;
+  }
+  .about-hero-stat-label {
+    font-size: 12px; color: var(--color-text-2); font-weight: 500; letter-spacing: -.1px;
+  }
+
+  /* ── STORY ───────────────────────────────────────── */
+  .story-grid {
+    display: grid; grid-template-columns: 0.85fr 1.15fr; gap: 72px; align-items: start;
+  }
+  .story-copy p {
+    font-size: 16px; color: var(--color-text-2); line-height: 1.85;
+    margin-bottom: 20px;
+  }
+  .story-copy p:last-child { margin-bottom: 0; }
+  .story-copy strong { color: var(--color-text-1); font-weight: 600; }
+  .story-signature {
+    margin-top: 32px; padding-top: 28px; border-top: 1px solid var(--color-border);
+    display: flex; align-items: center; gap: 14px;
+  }
+  .story-signature-mark {
+    width: 40px; height: 40px; border-radius: var(--radius-md);
+    background: var(--color-surface); display: flex; align-items: center; justify-content: center;
+  }
+  .story-signature-mark img { width: 18px; height: 18px; }
+  .story-signature-name { font-size: 13px; font-weight: 600; }
+  .story-signature-role { font-size: 12px; color: var(--color-text-2); }
+
+  /* ── MISSION ─────────────────────────────────────── */
+  .mission-section {
+    background: var(--color-primary); color: #fff; border-bottom: none;
+  }
+  .mission-section .section-label { color: rgba(255,255,255,.4); }
+  .mission-section .section-label::after { background: rgba(255,255,255,.12); }
+  .mission-statement {
+    font-size: clamp(24px, 3vw, 34px); font-weight: 700; letter-spacing: -1px;
+    line-height: 1.4; max-width: 880px; margin-bottom: 64px;
+  }
+  .mission-statement em {
+    font-style: normal; color: rgba(255,255,255,.4);
+  }
+  .mission-pillars {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px;
+    background: rgba(255,255,255,.08); border-radius: var(--radius-xl); overflow: hidden;
+  }
+  .mission-pillar {
+    background: #1C1C22; padding: 36px 32px;
+  }
+  .mission-pillar-num {
+    font-size: 12px; font-weight: 600; color: rgba(255,255,255,.35);
+    letter-spacing: .4px; margin-bottom: 20px;
+  }
+  .mission-pillar-title {
+    font-size: 17px; font-weight: 600; letter-spacing: -.3px; margin-bottom: 10px;
+  }
+  .mission-pillar-desc {
+    font-size: 13.5px; color: rgba(255,255,255,.55); line-height: 1.7;
+  }
+
+  /* ── VALUES ──────────────────────────────────────── */
+  .values-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
+  }
+  .value-card {
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xl);
+    padding: 36px 32px;
+    box-shadow: var(--shadow-sm);
+    transition: box-shadow .25s, transform .25s, border-color .25s;
+  }
+  .value-card:hover {
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-3px);
+    border-color: rgba(28,28,34,.12);
+  }
+  .value-icon {
+    width: 44px; height: 44px; border-radius: var(--radius-md);
+    background: var(--color-surface); display: flex; align-items: center;
+    justify-content: center; margin-bottom: 24px;
+  }
+  .value-title { font-size: 17px; font-weight: 600; letter-spacing: -.3px; margin-bottom: 10px; }
+  .value-desc { font-size: 14px; color: var(--color-text-2); line-height: 1.7; }
+
+  /* ── PROCESS ─────────────────────────────────────── */
+  .process-list {
+    display: flex; flex-direction: column;
+    border-top: 1px solid var(--color-border);
+  }
+  .process-step {
+    display: grid; grid-template-columns: 100px 1fr 1.1fr; gap: 40px;
+    align-items: center;
+    padding: 40px 0;
+    border-bottom: 1px solid var(--color-border);
+  }
+  .process-num {
+    font-size: 14px; font-weight: 700; color: var(--color-text-2);
+    font-variant-numeric: tabular-nums; letter-spacing: -.2px;
+  }
+  .process-name {
+    font-size: 24px; font-weight: 700; letter-spacing: -.7px;
+  }
+  .process-desc {
+    font-size: 15px; color: var(--color-text-2); line-height: 1.75;
+    max-width: 460px;
+  }
+
+  /* ── DIFFERENTIATORS ─────────────────────────────── */
+  .diff-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px;
+    background: var(--color-border); border: 1px solid var(--color-border);
+    border-radius: var(--radius-xl); overflow: hidden;
+  }
+  .diff-item {
+    background: var(--color-bg); padding: 36px 32px;
+    display: flex; flex-direction: column; gap: 16px;
+    transition: background .2s;
+  }
+  .diff-item:hover { background: var(--color-surface); }
+  .diff-icon {
+    width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;
+  }
+  .diff-title { font-size: 15.5px; font-weight: 600; letter-spacing: -.2px; }
+  .diff-desc { font-size: 13px; color: var(--color-text-2); line-height: 1.7; }
+
+  /* ── INDUSTRIES ──────────────────────────────────── */
+  .industries-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px;
+  }
+  .industry-card {
+    border: 1px solid var(--color-border); border-radius: var(--radius-lg);
+    padding: 28px 22px; background: var(--color-bg);
+    display: flex; flex-direction: column; gap: 16px;
+    transition: box-shadow .2s, transform .2s, border-color .2s;
+  }
+  .industry-card:hover {
+    box-shadow: var(--shadow-md); transform: translateY(-2px);
+    border-color: rgba(28,28,34,.14);
+  }
+  .industry-icon {
+    width: 36px; height: 36px; display: flex; align-items: center; justify-content: center;
+    background: var(--color-surface); border-radius: var(--radius-sm);
+  }
+  .industry-name { font-size: 14.5px; font-weight: 600; letter-spacing: -.2px; }
+
+  /* ── FAQ ─────────────────────────────────────────── */
+  .faq-list {
+    border-top: 1px solid var(--color-border);
+  }
+  .faq-item {
+    border-bottom: 1px solid var(--color-border);
+  }
+  .faq-question {
+    width: 100%; text-align: left; background: none; border: none; cursor: pointer;
+    font-family: var(--font);
+    display: flex; align-items: center; justify-content: space-between; gap: 24px;
+    padding: 26px 4px; font-size: 16.5px; font-weight: 600; letter-spacing: -.3px;
+    color: var(--color-text-1);
+  }
+  .faq-icon {
+    width: 28px; height: 28px; border-radius: 50%; border: 1px solid var(--color-border);
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    transition: transform .3s cubic-bezier(.16,1,.3,1), background .2s;
+  }
+  .faq-icon svg { transition: transform .3s cubic-bezier(.16,1,.3,1); }
+  .faq-item[data-open="true"] .faq-icon { background: var(--color-primary); border-color: var(--color-primary); }
+  .faq-item[data-open="true"] .faq-icon svg { transform: rotate(45deg); stroke: #fff; }
+  .faq-answer {
+    max-height: 0; overflow: hidden;
+    transition: max-height .35s cubic-bezier(.16,1,.3,1);
+  }
+  .faq-answer-inner {
+    padding: 0 4px 28px; font-size: 15px; color: var(--color-text-2);
+    line-height: 1.8; max-width: 760px;
+  }
+
+  /* ── FINAL CTA ───────────────────────────────────── */
+  .final-cta {
+    background: var(--color-primary); color: #fff;
+    border-bottom: none;
+    text-align: center;
+    padding: 140px 48px;
+    position: relative; overflow: hidden;
+  }
+  .final-cta::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(600px 400px at 50% 0%, rgba(255,255,255,.06), transparent 70%);
+    pointer-events: none;
+  }
+  .final-cta-inner { max-width: 720px; margin: 0 auto; position: relative; }
+  .final-cta-eyebrow {
+    font-size: 11px; font-weight: 600; letter-spacing: 1.2px; text-transform: uppercase;
+    color: rgba(255,255,255,.4); margin-bottom: 24px;
+  }
+  .final-cta-title {
+    font-size: clamp(32px, 4.6vw, 52px); font-weight: 800; letter-spacing: -1.8px;
+    line-height: 1.12; margin-bottom: 20px;
+  }
+  .final-cta-sub {
+    font-size: 17px; color: rgba(255,255,255,.55); line-height: 1.7;
+    max-width: 480px; margin: 0 auto 40px;
+  }
+  .final-cta-actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+
+  /* ── FOOTER ──────────────────────────────────────── */
+  footer {
+    background: var(--color-primary); color: #fff;
+    padding: 88px 48px 32px;
+  }
+  .footer-inner { max-width: 1280px; margin: 0 auto; }
+  .footer-top {
+    display: grid; grid-template-columns: 1.4fr repeat(3, 1fr); gap: 48px;
+    padding-bottom: 64px; border-bottom: 1px solid rgba(255,255,255,.08);
+  }
+  .footer-brand-block { display: flex; flex-direction: column; gap: 18px; }
+  .footer-brand {
+    display: flex; align-items: center; gap: 10px;
+    font-size: 16px; font-weight: 700; letter-spacing: -.3px;
+  }
+  .footer-brand img { width: 22px; height: 22px; }
+  .footer-tagline {
+    font-size: 13.5px; color: rgba(255,255,255,.45); line-height: 1.7; max-width: 260px;
+  }
+  .footer-social { display: flex; gap: 10px; margin-top: 8px; }
+  .footer-social a {
+    width: 34px; height: 34px; border-radius: 50%;
+    border: 1px solid rgba(255,255,255,.14);
+    display: flex; align-items: center; justify-content: center;
+    text-decoration: none; transition: background .15s, border-color .15s;
+  }
+  .footer-social a:hover { background: rgba(255,255,255,.08); border-color: rgba(255,255,255,.3); }
+  .footer-col-title {
+    font-size: 11px; font-weight: 600; letter-spacing: .8px; text-transform: uppercase;
+    color: rgba(255,255,255,.35); margin-bottom: 20px;
+  }
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+  .footer-col a {
+    font-size: 13.5px; color: rgba(255,255,255,.65); text-decoration: none; transition: color .15s;
+  }
+  .footer-col a:hover { color: #fff; }
+  .footer-bottom {
+    padding-top: 28px; display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 12px;
+  }
+  .footer-copyright { font-size: 12.5px; color: rgba(255,255,255,.35); }
+  .footer-legal { display: flex; gap: 24px; flex-wrap: wrap; list-style: none; }
+  .footer-legal a { font-size: 12.5px; color: rgba(255,255,255,.35); text-decoration: none; transition: color .15s; }
+  .footer-legal a:hover { color: rgba(255,255,255,.7); }
+
+  /* ── RESPONSIVE ──────────────────────────────────── */
+  @media (max-width: 1024px) {
+    .about-hero-inner { grid-template-columns: 1fr; gap: 40px; }
+    .about-hero-stats {
+      flex-direction: row; border-left: none; border-top: 1px solid var(--color-border);
+      padding-left: 0; padding-top: 32px; gap: 40px;
+    }
+    .story-grid { grid-template-columns: 1fr; gap: 40px; }
+    .mission-pillars { grid-template-columns: 1fr; }
+    .values-grid { grid-template-columns: repeat(2, 1fr); }
+    .diff-grid { grid-template-columns: repeat(2, 1fr); }
+    .industries-grid { grid-template-columns: repeat(3, 1fr); }
+    .process-step { grid-template-columns: 60px 1fr; }
+    .process-desc { grid-column: 2 / 3; max-width: none; }
+    .footer-top { grid-template-columns: 1fr 1fr; gap: 40px; }
+  }
+
+  @media (max-width: 768px) {
+    nav { padding: 0 20px; }
+    .nav-links { display: none; }
+    .nav-toggle { display: flex; }
+    .about-hero, section { padding: 64px 20px; }
+    .about-hero-stats { flex-direction: column; gap: 24px; }
+    .values-grid { grid-template-columns: 1fr; }
+    .diff-grid { grid-template-columns: 1fr; }
+    .industries-grid { grid-template-columns: repeat(2, 1fr); }
+    .section-head { flex-direction: column; align-items: flex-start; gap: 16px; }
+    .footer-top { grid-template-columns: 1fr; gap: 40px; }
+    .footer-bottom { flex-direction: column; align-items: flex-start; }
+    footer { padding: 64px 20px 32px; }
+    .final-cta { padding: 88px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     NAV — shared site navigation
+     ============================================================ -->
+<nav>
+  <div class="nav-inner">
+    <a class="nav-brand" href="index.html">
+      <img src="assets/logo.png" alt="Lumostat">
+      Lumostat
+    </a>
+    <ul class="nav-links">
+      <li><a href="work.html">Work</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="about.html" class="active">About</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="#" aria-disabled="true">Blog<span class="nav-soon">Soon</span></a></li>
+    </ul>
+    <div class="nav-cta">
+      <a href="contact.html" class="btn btn-primary btn-md">Start a Project</a>
+      <button class="nav-toggle" aria-label="Open menu">
+        <svg width="18" height="18" viewBox="0 0 20 20" fill="none"><path d="M3 6h14M3 10h14M3 14h14" stroke="#1C1C22" stroke-width="1.75" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- ============================================================
+     HERO
+     ============================================================ -->
+<header class="about-hero">
+  <div class="about-hero-inner">
+    <div>
+      <div class="about-hero-eyebrow reveal is-visible"><span class="dot"></span>About Lumostat</div>
+      <h1 class="about-hero-title reveal is-visible reveal-delay-1">We create digital experiences that help ambitious businesses grow.</h1>
+      <p class="about-hero-sub reveal is-visible reveal-delay-2">Lumostat is a design and development studio for founders and product teams who treat their website as core infrastructure — not an afterthought. We build the sites and products that carry a business's credibility, and we build them to convert.</p>
+      <div class="about-hero-cta reveal is-visible reveal-delay-3">
+        <a href="contact.html" class="btn btn-primary btn-lg">
+          Start a Project
+          <svg class="arrow" width="16" height="16" viewBox="0 0 20 20" fill="none"><path d="M4 10h12M10 4l6 6-6 6" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <a href="work.html" class="btn btn-ghost btn-lg">See Our Work</a>
+      </div>
+    </div>
+    <div class="about-hero-stats reveal is-visible reveal-delay-4">
+      <div>
+        <div class="about-hero-stat-num">2019</div>
+        <div class="about-hero-stat-label">Founded</div>
+      </div>
+      <div>
+        <div class="about-hero-stat-num">130+</div>
+        <div class="about-hero-stat-label">Projects shipped</div>
+      </div>
+      <div>
+        <div class="about-hero-stat-num">28</div>
+        <div class="about-hero-stat-label">Industries served</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ============================================================
+     OUR STORY
+     ============================================================ -->
+<section id="story">
+  <div class="section-inner">
+    <div class="section-label">01 — Our Story</div>
+    <div class="story-grid">
+      <div>
+        <h2 class="section-title reveal">Built to fix a problem we kept seeing.</h2>
+        <p class="section-desc reveal reveal-delay-1">Too many good businesses were being represented by weak websites — slow, generic, and disconnected from how they actually operate.</p>
+      </div>
+      <div class="story-copy reveal reveal-delay-2">
+        <p>Lumostat started with a simple observation: most agencies were shipping templates dressed up as custom work, and most in-house teams didn't have the bandwidth to do design justice. Businesses were left choosing between "fast and generic" or "thoughtful and slow." We didn't think that trade-off was necessary.</p>
+        <p>So we built a studio around a narrower promise — <strong>every project gets senior attention, from strategy through launch</strong>. No account handoffs, no junior teams learning on a client's budget. The same people who plan the work also design and build it.</p>
+        <p>That discipline is still the whole model. We work with a limited number of clients at a time, on purpose, so the craft doesn't slip as we grow. It's slower to scale, but it's the only way we've found to keep the work honest.</p>
+        <div class="story-signature">
+          <div class="story-signature-mark"><img src="assets/logo.png" alt=""></div>
+          <div>
+            <div class="story-signature-name">The Lumostat Team</div>
+            <div class="story-signature-role">Design & Engineering</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     OUR MISSION
+     ============================================================ -->
+<section id="mission" class="mission-section">
+  <div class="section-inner">
+    <div class="section-label">02 — Our Mission</div>
+    <p class="mission-statement reveal">We help businesses build trust online, turn visitors into customers, and prove that <em>beautiful and effective aren't different things.</em></p>
+    <div class="mission-pillars">
+      <div class="mission-pillar reveal">
+        <div class="mission-pillar-num">01</div>
+        <div class="mission-pillar-title">Build trust at first glance</div>
+        <div class="mission-pillar-desc">A site is often the first real interaction a customer has with a business. We design every page to earn confidence in seconds, not paragraphs.</div>
+      </div>
+      <div class="mission-pillar reveal reveal-delay-1">
+        <div class="mission-pillar-num">02</div>
+        <div class="mission-pillar-title">Design for conversion</div>
+        <div class="mission-pillar-desc">Good looking is table stakes. We structure every layout, sentence, and call to action around the outcome our client is actually trying to drive.</div>
+      </div>
+      <div class="mission-pillar reveal reveal-delay-2">
+        <div class="mission-pillar-num">03</div>
+        <div class="mission-pillar-title">Function under the beauty</div>
+        <div class="mission-pillar-desc">Fast, accessible, easy to maintain. We build systems our clients' teams can actually run, long after the project wraps.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     OUR VALUES
+     ============================================================ -->
+<section id="values">
+  <div class="section-inner">
+    <div class="section-head">
+      <div>
+        <div class="section-label">03 — Our Values</div>
+        <h2 class="section-title reveal">What we hold ourselves to.</h2>
+      </div>
+      <p class="section-desc reveal reveal-delay-1">The standards that shape every decision, from the first call to the last line of code.</p>
+    </div>
+    <div class="values-grid">
+      <div class="value-card reveal">
+        <div class="value-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M4 10l5 5 7-8" stroke="#1C1C22" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="value-title">Quality</div>
+        <div class="value-desc">We would rather do fewer projects well than many projects adequately. Craft is non-negotiable, even under deadline pressure.</div>
+      </div>
+      <div class="value-card reveal reveal-delay-1">
+        <div class="value-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M2 10s3-6 8-6 8 6 8 6-3 6-8 6-8-6-8-6z" stroke="#1C1C22" stroke-width="1.75"/><circle cx="10" cy="10" r="2.5" stroke="#1C1C22" stroke-width="1.75"/></svg></div>
+        <div class="value-title">Transparency</div>
+        <div class="value-desc">Clear timelines, honest scope conversations, and no surprise invoices. If something changes, our clients hear it from us first.</div>
+      </div>
+      <div class="value-card reveal reveal-delay-2">
+        <div class="value-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 2l2.4 5.5H18l-4.5 3.3 1.7 5.2L10 13l-5.2 3 1.7-5.2L2 7.5h5.6L10 2z" stroke="#1C1C22" stroke-width="1.5" stroke-linejoin="round"/></svg></div>
+        <div class="value-title">Creativity</div>
+        <div class="value-desc">Every brand deserves a solution built for it — not a theme repurposed from someone else's business.</div>
+      </div>
+      <div class="value-card reveal">
+        <div class="value-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M4 10h12" stroke="#1C1C22" stroke-width="1.75" stroke-linecap="round"/></svg></div>
+        <div class="value-title">Simplicity</div>
+        <div class="value-desc">Complexity is easy to add and hard to remove. We keep cutting until what's left is exactly what earns its place.</div>
+      </div>
+      <div class="value-card reveal reveal-delay-1">
+        <div class="value-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 2v16M2 10h16" stroke="#1C1C22" stroke-width="1.75" stroke-linecap="round"/></svg></div>
+        <div class="value-title">Innovation</div>
+        <div class="value-desc">We stay close to what modern tooling makes possible, and we bring it into client work the moment it's proven — not before.</div>
+      </div>
+      <div class="value-card reveal reveal-delay-2">
+        <div class="value-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M8 12l4-4M7 9l-2 2a3.5 3.5 0 005 5l2-2M13 11l2-2a3.5 3.5 0 00-5-5L8 6" stroke="#1C1C22" stroke-width="1.75" stroke-linecap="round"/></svg></div>
+        <div class="value-title">Long-Term Partnerships</div>
+        <div class="value-desc">Launch is the beginning of the relationship, not the end of it. Most of our clients come back for the next project.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     HOW WE WORK
+     ============================================================ -->
+<section id="process">
+  <div class="section-inner">
+    <div class="section-label">04 — How We Work</div>
+    <h2 class="section-title reveal">A process built for clarity, not ceremony.</h2>
+    <p class="section-desc reveal reveal-delay-1" style="margin-bottom:56px;">Four stages, the same for every engagement. Each one ends with something concrete you can react to.</p>
+
+    <div class="process-list">
+      <div class="process-step reveal">
+        <div class="process-num">01</div>
+        <div class="process-name">Discover</div>
+        <div class="process-desc">We start by understanding the business — goals, audience, competitors, and what "success" actually looks like. No design work begins until this is settled.</div>
+      </div>
+      <div class="process-step reveal reveal-delay-1">
+        <div class="process-num">02</div>
+        <div class="process-name">Plan</div>
+        <div class="process-desc">Sitemap, content strategy, and technical approach get locked in writing. This is where scope, timeline, and budget become concrete commitments.</div>
+      </div>
+      <div class="process-step reveal reveal-delay-2">
+        <div class="process-num">03</div>
+        <div class="process-name">Design</div>
+        <div class="process-desc">We design in the browser, not just in mockups, so what a client approves is close to what actually ships. Feedback rounds are structured and fast.</div>
+      </div>
+      <div class="process-step reveal reveal-delay-3">
+        <div class="process-num">04</div>
+        <div class="process-name">Launch</div>
+        <div class="process-desc">QA across devices, performance and accessibility checks, then a coordinated go-live. We stay on for support after the site is public.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     WHAT MAKES US DIFFERENT
+     ============================================================ -->
+<section id="different">
+  <div class="section-inner">
+    <div class="section-head">
+      <div>
+        <div class="section-label">05 — What Makes Lumostat Different</div>
+        <h2 class="section-title reveal">Not the only agency. The one worth choosing.</h2>
+      </div>
+      <p class="section-desc reveal reveal-delay-1">Six things clients consistently point to when we ask why they picked us.</p>
+    </div>
+
+    <div class="diff-grid">
+      <div class="diff-item reveal">
+        <div class="diff-icon"><svg width="22" height="22" viewBox="0 0 20 20" fill="none"><rect x="2" y="2" width="7" height="7" rx="2" fill="#1C1C22"/><rect x="11" y="2" width="7" height="7" rx="2" fill="#D8D8DC"/><rect x="2" y="11" width="7" height="7" rx="2" fill="#D8D8DC"/><rect x="11" y="11" width="7" height="7" rx="2" fill="#1C1C22"/></svg></div>
+        <div class="diff-title">Custom Design</div>
+        <div class="diff-desc">Every layout is designed from a blank canvas for the brand in front of us — never pulled from a theme library.</div>
+      </div>
+      <div class="diff-item reveal reveal-delay-1">
+        <div class="diff-icon"><svg width="22" height="22" viewBox="0 0 20 20" fill="none"><path d="M17 3L3 9l6 2 2 6 6-14z" stroke="#1C1C22" stroke-width="1.75" stroke-linejoin="round"/></svg></div>
+        <div class="diff-title">Fast Communication</div>
+        <div class="diff-desc">Direct access to the people doing the work. Questions get answered in hours, not through a ticket queue.</div>
+      </div>
+      <div class="diff-item reveal reveal-delay-2">
+        <div class="diff-icon"><svg width="22" height="22" viewBox="0 0 20 20" fill="none"><path d="M10 2L18 7v6l-8 5-8-5V7l8-5z" stroke="#1C1C22" stroke-width="1.5" fill="none"/></svg></div>
+        <div class="diff-title">Modern Technology</div>
+        <div class="diff-desc">We build on current, well-supported tooling — fast to load, easy to extend, and simple to hand off.</div>
+      </div>
+      <div class="diff-item reveal">
+        <div class="diff-icon"><svg width="22" height="22" viewBox="0 0 20 20" fill="none"><rect x="6" y="2" width="8" height="16" rx="2" stroke="#1C1C22" stroke-width="1.5"/><path d="M9 15h2" stroke="#1C1C22" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        <div class="diff-title">Mobile First</div>
+        <div class="diff-desc">Every layout starts on the smallest screen. Desktop is the extension, not the default, because that's where most visitors are.</div>
+      </div>
+      <div class="diff-item reveal reveal-delay-1">
+        <div class="diff-icon"><svg width="22" height="22" viewBox="0 0 20 20" fill="none"><path d="M4 10h12M10 4l6 6-6 6" stroke="#1C1C22" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="diff-title">Conversion Focused</div>
+        <div class="diff-desc">Every page is built around a single job to do. We measure success in leads and sales, not just visual polish.</div>
+      </div>
+      <div class="diff-item reveal reveal-delay-2">
+        <div class="diff-icon"><svg width="22" height="22" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="7" stroke="#1C1C22" stroke-width="1.5"/><path d="M10 6v4l3 2" stroke="#1C1C22" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        <div class="diff-title">Long-Term Support</div>
+        <div class="diff-desc">Sites need upkeep. We offer ongoing maintenance plans so nothing quietly breaks six months after launch.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     INDUSTRIES
+     ============================================================ -->
+<section id="industries">
+  <div class="section-inner">
+    <div class="section-label">06 — Industries We Work With</div>
+    <h2 class="section-title reveal">Range, without losing depth.</h2>
+    <p class="section-desc reveal reveal-delay-1" style="margin-bottom:56px;">Different industries need different things from a website. We've built the pattern library to match.</p>
+
+    <div class="industries-grid">
+      <div class="industry-card reveal">
+        <div class="industry-icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none"><path d="M10 3v14M3 10h14" stroke="#1C1C22" stroke-width="1.75" stroke-linecap="round"/></svg></div>
+        <div class="industry-name">Healthcare</div>
+      </div>
+      <div class="industry-card reveal reveal-delay-1">
+        <div class="industry-icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none"><path d="M5 3v14M15 3v14M5 8h10M5 13h10" stroke="#1C1C22" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        <div class="industry-name">Restaurants</div>
+      </div>
+      <div class="industry-card reveal reveal-delay-2">
+        <div class="industry-icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none"><path d="M3 17V8l7-5 7 5v9" stroke="#1C1C22" stroke-width="1.5" stroke-linejoin="round"/><path d="M8 17v-6h4v6" stroke="#1C1C22" stroke-width="1.5"/></svg></div>
+        <div class="industry-name">Construction</div>
+      </div>
+      <div class="industry-card reveal reveal-delay-3">
+        <div class="industry-icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none"><path d="M2 7l8-4 8 4-8 4-8-4z" stroke="#1C1C22" stroke-width="1.5" stroke-linejoin="round"/><path d="M5 9v5c0 1.1 2.2 2 5 2s5-.9 5-2V9" stroke="#1C1C22" stroke-width="1.5"/></svg></div>
+        <div class="industry-name">Education</div>
+      </div>
+      <div class="industry-card reveal">
+        <div class="industry-icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none"><rect x="4" y="3" width="12" height="14" rx="1.5" stroke="#1C1C22" stroke-width="1.5"/><path d="M7 7h6M7 10h6M7 13h3" stroke="#1C1C22" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        <div class="industry-name">Professional Services</div>
+      </div>
+      <div class="industry-card reveal reveal-delay-1">
+        <div class="industry-icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none"><path d="M4 17V9l6-5 6 5v8" stroke="#1C1C22" stroke-width="1.5" stroke-linejoin="round"/><rect x="8" y="12" width="4" height="5" stroke="#1C1C22" stroke-width="1.5"/></svg></div>
+        <div class="industry-name">Real Estate</div>
+      </div>
+      <div class="industry-card reveal reveal-delay-2">
+        <div class="industry-icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none"><path d="M10 2v4M10 14v4M4 10h4M12 10h4" stroke="#1C1C22" stroke-width="1.75" stroke-linecap="round"/><circle cx="10" cy="10" r="3" stroke="#1C1C22" stroke-width="1.5"/></svg></div>
+        <div class="industry-name">Startups</div>
+      </div>
+      <div class="industry-card reveal reveal-delay-3">
+        <div class="industry-icon"><svg width="18" height="18" viewBox="0 0 20 20" fill="none"><path d="M3 6h14l-1.5 9h-11L3 6z" stroke="#1C1C22" stroke-width="1.5" stroke-linejoin="round"/><path d="M7 6V4a3 3 0 016 0v2" stroke="#1C1C22" stroke-width="1.5"/></svg></div>
+        <div class="industry-name">E-commerce</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     FAQ
+     ============================================================ -->
+<section id="faq">
+  <div class="section-inner narrow">
+    <div class="section-label">07 — Frequently Asked Questions</div>
+    <h2 class="section-title reveal" style="margin-bottom:56px;">Questions we hear before a project starts.</h2>
+
+    <div class="faq-list">
+      <div class="faq-item reveal" data-open="false">
+        <button class="faq-question" aria-expanded="false">
+          What does the project process actually look like?
+          <span class="faq-icon"><svg width="14" height="14" viewBox="0 0 20 20" fill="none"><path d="M10 4v12M4 10h12" stroke="#1C1C22" stroke-width="1.75" stroke-linecap="round"/></svg></span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">We follow the four-stage process outlined above: Discover, Plan, Design, Launch. You'll always know which stage a project is in and what's due next — we send a simple written plan at kickoff so nothing is ambiguous.</div>
+        </div>
+      </div>
+
+      <div class="faq-item reveal" data-open="false">
+        <button class="faq-question" aria-expanded="false">
+          How do we communicate during the project?
+          <span class="faq-icon"><svg width="14" height="14" viewBox="0 0 20 20" fill="none"><path d="M10 4v12M4 10h12" stroke="#1C1C22" stroke-width="1.75" stroke-linecap="round"/></svg></span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">You'll have a shared channel with your project lead and weekly async updates. No layers of account managers relaying messages — you talk directly to the people building your site.</div>
+        </div>
+      </div>
+
+      <div class="faq-item reveal" data-open="false">
+        <button class="faq-question" aria-expanded="false">
+          How long does a typical project take?
+          <span class="faq-icon"><svg width="14" height="14" viewBox="0 0 20 20" fill="none"><path d="M10 4v12M4 10h12" stroke="#1C1C22" stroke-width="1.75" stroke-linecap="round"/></svg></span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">Most marketing sites take 4–6 weeks from kickoff to launch. Larger product builds run 8–14 weeks depending on scope. You'll get a firm timeline once we've scoped the work in the Plan stage.</div>
+        </div>
+      </div>
+
+      <div class="faq-item reveal" data-open="false">
+        <button class="faq-question" aria-expanded="false">
+          How is pricing structured?
+          <span class="faq-icon"><svg width="14" height="14" viewBox="0 0 20 20" fill="none"><path d="M10 4v12M4 10h12" stroke="#1C1C22" stroke-width="1.75" stroke-linecap="round"/></svg></span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">Fixed project pricing, agreed before work begins — no hourly billing surprises. Pricing depends on scope and complexity; most engagements start at $8,000. We'll give you a firm number after the discovery call.</div>
+        </div>
+      </div>
+
+      <div class="faq-item reveal" data-open="false">
+        <button class="faq-question" aria-expanded="false">
+          How many rounds of revisions are included?
+          <span class="faq-icon"><svg width="14" height="14" viewBox="0 0 20 20" fill="none"><path d="M10 4v12M4 10h12" stroke="#1C1C22" stroke-width="1.75" stroke-linecap="round"/></svg></span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">Two structured feedback rounds are built into the Design stage. In practice, most projects need fewer because we design in the browser and share progress early and often.</div>
+        </div>
+      </div>
+
+      <div class="faq-item reveal" data-open="false">
+        <button class="faq-question" aria-expanded="false">
+          What happens after launch?
+          <span class="faq-icon"><svg width="14" height="14" viewBox="0 0 20 20" fill="none"><path d="M10 4v12M4 10h12" stroke="#1C1C22" stroke-width="1.75" stroke-linecap="round"/></svg></span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">Every project includes a 30-day launch warranty covering fixes at no cost. Beyond that, we offer monthly support plans for updates, monitoring, and small feature additions.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     FINAL CTA
+     ============================================================ -->
+<section class="final-cta">
+  <div class="final-cta-inner">
+    <div class="final-cta-eyebrow reveal">Let's Talk</div>
+    <h2 class="final-cta-title reveal reveal-delay-1">Ready to build something remarkable?</h2>
+    <p class="final-cta-sub reveal reveal-delay-2">Let's create your next digital experience — one built for growth, not just for launch day.</p>
+    <div class="final-cta-actions reveal reveal-delay-3">
+      <a href="contact.html" class="btn btn-white btn-lg">
+        Start a Project
+        <svg class="arrow" width="16" height="16" viewBox="0 0 20 20" fill="none"><path d="M4 10h12M10 4l6 6-6 6" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+      <a href="work.html" class="btn btn-ghost-white btn-lg">View Our Work</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     FOOTER — shared site footer
+     ============================================================ -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand-block">
+        <a class="footer-brand" href="index.html">
+          <img src="assets/logo.png" alt="Lumostat">
+          Lumostat
+        </a>
+        <p class="footer-tagline">A premium web design and digital solutions studio for ambitious businesses.</p>
+        <div class="footer-social">
+          <a href="#" aria-label="Lumostat on X">
+            <svg width="14" height="14" viewBox="0 0 20 20" fill="none"><path d="M2 2l16 16M18 2L2 18" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </a>
+          <a href="#" aria-label="Lumostat on LinkedIn">
+            <svg width="14" height="14" viewBox="0 0 20 20" fill="none"><rect x="3" y="8" width="3" height="9" fill="#fff"/><circle cx="4.5" cy="4.5" r="1.5" fill="#fff"/><path d="M9 8h3v1.5c.6-1 1.7-1.7 3.2-1.7 2.4 0 3.8 1.6 3.8 4.6V17h-3v-4c0-1.2-.4-2-1.6-2-.9 0-1.4.6-1.6 1.2-.1.2-.1.5-.1.8v4H9V8z" fill="#fff"/></svg>
+          </a>
+          <a href="#" aria-label="Lumostat on Instagram">
+            <svg width="14" height="14" viewBox="0 0 20 20" fill="none"><rect x="2" y="2" width="16" height="16" rx="4" stroke="#fff" stroke-width="1.5"/><circle cx="10" cy="10" r="4" stroke="#fff" stroke-width="1.5"/><circle cx="14.5" cy="5.5" r="1" fill="#fff"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <nav class="footer-col" aria-label="Navigation">
+        <div class="footer-col-title">Navigation</div>
+        <ul>
+          <li><a href="work.html">Work</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="#" aria-disabled="true">Blog — Coming Soon</a></li>
+        </ul>
+      </nav>
+
+      <nav class="footer-col" aria-label="Services">
+        <div class="footer-col-title">Services</div>
+        <ul>
+          <li><a href="services.html#web-design">Web Design</a></li>
+          <li><a href="services.html#saas">SaaS Products</a></li>
+          <li><a href="services.html#ai">AI Applications</a></li>
+          <li><a href="services.html#branding">Branding</a></li>
+        </ul>
+      </nav>
+
+      <div class="footer-col">
+        <div class="footer-col-title">Contact</div>
+        <ul>
+          <li><a href="mailto:hello@lumostat.co">hello@lumostat.co</a></li>
+          <li><a href="tel:+18005550142">+1 (800) 555-0142</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="footer-copyright">© 2026 Lumostat. All rights reserved.</div>
+      <ul class="footer-legal">
+        <li><a href="privacy.html">Privacy Policy</a></li>
+        <li><a href="terms.html">Terms</a></li>
+        <li><a href="refund-policy.html">Refund Policy</a></li>
+        <li><a href="cookie-policy.html">Cookie Policy</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+<script>
+  /* ============================================================
+     SCROLL REVEAL
+     Fades and lifts sections into view as the user scrolls.
+     Respects prefers-reduced-motion by short-circuiting the observer.
+     ============================================================ */
+  (function () {
+    var prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var revealEls = document.querySelectorAll('.reveal');
+
+    if (prefersReduced || !('IntersectionObserver' in window)) {
+      revealEls.forEach(function (el) { el.classList.add('is-visible'); });
+      return;
+    }
+
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+
+    revealEls.forEach(function (el) { observer.observe(el); });
+  })();
+
+  /* ============================================================
+     FAQ ACCORDION
+     Single-panel expand/collapse with animated max-height.
+     ============================================================ */
+  (function () {
+    var items = document.querySelectorAll('.faq-item');
+
+    items.forEach(function (item) {
+      var question = item.querySelector('.faq-question');
+      var answer = item.querySelector('.faq-answer');
+
+      question.addEventListener('click', function () {
+        var isOpen = item.getAttribute('data-open') === 'true';
+
+        // Close all other panels for a clean single-open accordion.
+        items.forEach(function (other) {
+          if (other !== item) {
+            other.setAttribute('data-open', 'false');
+            other.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
+            other.querySelector('.faq-answer').style.maxHeight = null;
+          }
+        });
+
+        if (isOpen) {
+          item.setAttribute('data-open', 'false');
+          question.setAttribute('aria-expanded', 'false');
+          answer.style.maxHeight = null;
+        } else {
+          item.setAttribute('data-open', 'true');
+          question.setAttribute('aria-expanded', 'true');
+          answer.style.maxHeight = answer.scrollHeight + 'px';
+        }
+      });
+    });
+  })();
+
+  /* ============================================================
+     MOBILE NAV TOGGLE
+     ============================================================ */
+  (function () {
+    var toggle = document.querySelector('.nav-toggle');
+    var links = document.querySelector('.nav-links');
+    if (!toggle || !links) return;
+
+    toggle.addEventListener('click', function () {
+      var isOpen = links.style.display === 'flex';
+      if (isOpen) {
+        links.style.display = 'none';
+      } else {
+        links.style.cssText = 'display:flex;position:absolute;top:64px;left:0;right:0;background:#fff;flex-direction:column;padding:24px 20px;gap:20px;border-bottom:1px solid #ECECEC;box-shadow:0 8px 32px rgba(0,0,0,.08);';
+      }
+    });
+  })();
+</script>
+
+</body>
+</html>
